@@ -1,0 +1,21 @@
+{
+  "assets": {},
+  "config": {
+    "build_asset_types": [
+      "code_assets/code"
+    ],
+    "extensions": {
+      "code_assets": {
+        "link_mode_preference": "dynamic",
+        "target_architecture": "x64",
+        "target_os": "windows"
+      }
+    },
+    "linking_enabled": false
+  },
+  "out_dir_shared": "C:\\Users\\Mark Angelo Jamela\\Documents\\JAMELA_AppDev\\JAMELA-UNIT5_ACTIVITY\\Jamela_CC-207B_26-27_Activities\\A\\JAMELA_MARK_ANGELO\\JAMELA-UNIT5_EXERCISE\\jamela_unit5_exercise\\.dart_tool\\hooks_runner\\shared\\objective_c\\build\\",
+  "out_file": "C:\\Users\\Mark Angelo Jamela\\Documents\\JAMELA_AppDev\\JAMELA-UNIT5_ACTIVITY\\Jamela_CC-207B_26-27_Activities\\A\\JAMELA_MARK_ANGELO\\JAMELA-UNIT5_EXERCISE\\jamela_unit5_exercise\\.dart_tool\\hooks_runner\\objective_c\\8e04c28b44\\output.json",
+  "package_name": "objective_c",
+  "package_root": "C:\\Users\\Mark Angelo Jamela\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\objective_c-9.5.0\\",
+  "user_defines": {}
+}
