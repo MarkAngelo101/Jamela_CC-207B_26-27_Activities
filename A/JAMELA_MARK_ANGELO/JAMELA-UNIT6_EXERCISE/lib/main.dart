@@ -1,111 +1,74 @@
 import 'package:flutter/material.dart';
 
-import '../models/photo.dart';
+import 'screens/gallery_screen.dart';
+import 'screens/pet_screen.dart';
+import 'screens/profile_screen.dart';
 
-const List<Photo> photos = [
-  Photo(asset: 'assets/images/gallery/Image1.jpeg', caption: 'Photo 1'),
-  Photo(asset: 'assets/images/gallery/Image2.jpg', caption: 'Photo 2'),
-  Photo(asset: 'assets/images/gallery/Image3.jpg', caption: 'Photo 3'),
-  Photo(asset: 'assets/images/gallery/Image4.png', caption: 'Photo 4'),
-  Photo(asset: 'assets/images/gallery/Image5.jpeg', caption: 'Photo 5'),
-  Photo(asset: 'assets/images/gallery/Image6.jpeg', caption: 'Photo 6'),
-];
-
-class GalleryScreen extends StatefulWidget {
-  const GalleryScreen({super.key});
-
-  @override
-  State<GalleryScreen> createState() => _GalleryScreenState();
+void main() {
+  runApp(const MyApp());
 }
 
-class _GalleryScreenState extends State<GalleryScreen> {
-  String? _favoriteAsset;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  Future<void> _openPhoto(Photo photo) async {
-    final makeFavorite = await Navigator.of(context).push<bool>(
-      MaterialPageRoute<bool>(
-        builder: (_) => PhotoScreen(photo: photo),
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Unit 6 Exercise',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
+        useMaterial3: true,
       ),
+      home: const HomeShell(),
     );
-
-    if (mounted && makeFavorite == true) {
-      setState(() => _favoriteAsset = photo.asset);
-    }
   }
+}
+
+class HomeShell extends StatefulWidget {
+  const HomeShell({super.key});
+
+  @override
+  State<HomeShell> createState() => _HomeShellState();
+}
+
+class _HomeShellState extends State<HomeShell> {
+  int _selectedIndex = 0;
+
+  static const List<Widget> _screens = [
+    ProfileScreen(),
+    PetScreen(),
+    GalleryScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Gallery')),
-      body: GridView.extent(
-        maxCrossAxisExtent: 160,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-        padding: const EdgeInsets.all(8),
-        children: [
-          for (final photo in photos)
-            InkWell(
-              onTap: () => _openPhoto(photo),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image.asset(
-                      photo.asset,
-                      fit: BoxFit.cover,
-                      semanticLabel: photo.caption,
-                    ),
-                    if (_favoriteAsset == photo.asset)
-                      const Positioned(
-                        top: 8,
-                        right: 8,
-                        child: Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 30,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _screens,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index) {
+          setState(() => _selectedIndex = index);
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.pets_outlined),
+            selectedIcon: Icon(Icons.pets),
+            label: 'My Pet',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.photo_library_outlined),
+            selectedIcon: Icon(Icons.photo_library),
+            label: 'Gallery',
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class PhotoScreen extends StatelessWidget {
-  final Photo photo;
-
-  const PhotoScreen({super.key, required this.photo});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(photo.caption)),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Expanded(
-              child: Center(
-                child: Image.asset(
-                  photo.asset,
-                  fit: BoxFit.contain,
-                  semanticLabel: photo.caption,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            FilledButton.icon(
-              onPressed: () => Navigator.pop(context, true),
-              icon: const Icon(Icons.star),
-              label: const Text('Make favorite'),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/profile_info.dart';
-import '../widgets/info_tile.dart';
 
 // TODO: replace the placeholder values below with your own details.
 const String fullName = 'Mark Angelo A. Jamela';
@@ -143,15 +142,9 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('My Hobbies', style: theme.textTheme.titleLarge),
+                    Text('My Biography', style: theme.textTheme.titleLarge),
                     const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final hobby in hobbies) Chip(label: Text(hobby)),
-                      ],
-                    ),
+                    Text(biography, style: theme.textTheme.bodyMedium),
                   ],
                 ),
               ),
