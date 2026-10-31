@@ -1,1 +1,0 @@
-Add profile.jpg and favorite_dog.jpg to this folder.
